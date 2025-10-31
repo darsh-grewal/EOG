@@ -212,10 +212,22 @@ def main():
     det_queue = collections.deque(maxlen=50)
     eog = EOGReader(det_queue)
     eog.start()
-
+ 
     # Run calibration
+    eog.raw_log = []
+    eog.record_raw = True
     calibration_params = run_calibration(eog, window, font, calibration_sequence, clock)
+    eog.record_raw = False
+    eog.save_raw_data(os.path.join(RESULTS_DIR, "calibration_raw_signals.csv"))
+    samples, timestamps = eog.inlet.pull_chunk(timeout=0.01)
+
+
+    eog.out_queue.clear()
+    eog.raw_log = []
+    eog.record_raw = True
     blink_calibration_results = run_blink_calibration(eog, window, font, clock, calibration_params)
+    eog.record_raw = False
+    eog.save_raw_data(os.path.join(RESULTS_DIR, "blink_calibration_raw_signals.csv"))
     calibration_params['blink_threshold'] = blink_calibration_results['blink_threshold']
     eog.calibration_params = calibration_params
 
@@ -237,6 +249,8 @@ def main():
     step_min_h = float('inf')
     step_max_v = -float('inf')
     step_min_v = float('inf')
+    eog.raw_log = []
+    eog.record_raw = True
 
     # Initialize scoring
     trials = []
@@ -394,6 +408,8 @@ def main():
 
 
     finally:
+        eog.record_raw = False
+        eog.save_raw_data(os.path.join(RESULTS_DIR, "main_task_raw_signals.csv"))
         eog.stop()
         save_results(trials, calibration_params)
 
