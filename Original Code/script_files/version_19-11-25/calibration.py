@@ -652,7 +652,7 @@ def run_blink_calibration(eog_reader, window, font, clock, calibration_params):
             all_ch1.extend(samples[:, 0])
             all_ch2.extend(samples[:, 1])
             all_ch3.extend(samples[:, 2])
-            all_ch8.extend(samples[:, 7])
+            all_ch8.extend(samples[:, 4])
             all_times.extend([time.time() - start_time] * len(samples))
 
         pygame.event.pump()

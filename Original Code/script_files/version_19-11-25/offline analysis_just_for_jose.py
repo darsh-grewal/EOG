@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from signal_processing_2 import bandpass_filter, notch_filter, process_signal, wavelet_transform
+from signal_processing_wavelet import bandpass_filter, notch_filter, process_signal, wavelet_transform
 from signal_processing_wavelet import process_eog_signals_with_blinks
 from config import FS, center_pos, WIDTH, HEIGHT, FILTER_ORDER, HIGHCUT, LOWCUT
 import scipy.signal as sig
@@ -55,6 +55,11 @@ ch1 = raw_multichannels['ch1']
 ch2 = raw_multichannels['ch2']
 ch3 = raw_multichannels['ch3']
 ch8 = raw_multichannels['ch8']
+
+ch1_raw = ch1.copy()
+ch2_raw = ch2.copy()
+ch3_raw = ch3.copy()
+ch8_raw = ch8.copy()
 
 def butter_bandpass_sos(lowcut, highcut, fs, order=2):
     """
@@ -146,28 +151,28 @@ def process_signal_no_bandpass(data, fs, channel_type):
 
 plt.figure(figsize=(12, 8))
 plt.subplot(4, 1, 1)
-plt.plot(t, ch1, label='Ch1')
+plt.plot(t, ch1_raw, label='Ch1')
 plt.title('Channel 1 Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.legend()
 
 plt.subplot(4, 1, 2)
-plt.plot(t, ch2, label='Ch2', color='orange')
+plt.plot(t, ch2_raw, label='Ch2', color='orange')
 plt.title('Channel 2 Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.legend()
 
 plt.subplot(4, 1, 3)
-plt.plot(t, ch3, label='Ch3', color='green')
+plt.plot(t, ch3_raw, label='Ch3', color='green')
 plt.title('Channel 3 Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.legend()
 
 plt.subplot(4, 1, 4)
-plt.plot(t, ch8, label='Ch8', color='red')
+plt.plot(t, ch8_raw, label='Ch8', color='red')
 plt.title('Channel 8 Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')

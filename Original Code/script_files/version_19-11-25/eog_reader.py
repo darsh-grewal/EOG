@@ -217,7 +217,7 @@ class EOGReader(threading.Thread):
             ch1 = np.array(self.detect_channel_buffers[0])
             ch2 = np.array(self.detect_channel_buffers[1])
             ch3 = np.array(self.detect_channel_buffers[2])
-            ch8 = np.array(self.detect_channel_buffers[7])
+            ch8 = np.array(self.detect_channel_buffers[4])
 
             # Ensure all arrays have the same length
             min_length = min(len(times), len(ch1), len(ch2), len(ch3), len(ch8))
@@ -606,7 +606,7 @@ class EOGReader(threading.Thread):
                     ch1 = np.array(self.channel_buffers[0])
                     ch2 = np.array(self.channel_buffers[1])
                     ch3 = np.array(self.channel_buffers[2])
-                    ch8 = np.array(self.channel_buffers[7])
+                    ch8 = np.array(self.channel_buffers[4])
 
                     # Ensure all arrays have the same length
                     min_length = min(len(self.time_buffer), len(ch1), len(ch2), len(ch3), len(ch8))
